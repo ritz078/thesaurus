@@ -1,6 +1,12 @@
+<br/>
+<br/>
 <p align="center">
-<img src="thesaurus.png"/>
+<img width="400" src="thesaurus.png"/>
 </p>
+<br/>
+<br/>
 
-## License 
+> Thesaurus helps in finding synonyms of any word including suggestion from other languages.
+
+#### License 
 MIT
