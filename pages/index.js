@@ -269,13 +269,13 @@ export default class extends React.PureComponent {
                       </Pane>
                     )}
 
-                  <Pane
+                  {index === tabIndex && <Pane
                     id={`panel-${name}`}
                     role="tabpanel"
                     aria-labelledby={name}
                     height="auto"
                     aria-hidden={index !== tabIndex}
-                    display={index === tabIndex ? "flex" : "none"}
+                    display="flex"
                   >
                     <UnorderedList>
                       {_results[key].map(result => {
@@ -300,7 +300,7 @@ export default class extends React.PureComponent {
                         );
                       })}
                     </UnorderedList>
-                  </Pane>
+                  </Pane>}
                 </React.Fragment>
               ))}
             </Pane>

@@ -1,0 +1,5 @@
+{
+  "name": "thesaurus",
+  "alias": ["thesaurus"],
+  "files": ["pages", "static", "key.json", "package.json", "yarn.lock", "server.js"]
+}

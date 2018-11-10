@@ -1,5 +1,5 @@
 const next = require("next");
-const translate = require("google-translate-query");
+// const translate = require("google-translate-query");
 const iso = require("iso-639-1");
 const codes = iso.getAllCodes();
 
@@ -13,6 +13,15 @@ const nextApp = next({ dev });
 const nextHandler = nextApp.getRequestHandler();
 const ts = require("thesaurus-service");
 
+// Imports the Google Cloud client library
+const {Translate} = require('@google-cloud/translate');
+const { project_id } = require("./key.json");
+
+// Instantiates a client
+const translate = new Translate({
+  projectId: project_id,
+});
+
 io.on("connection", function(socket) {
   let streamTs;
   socket.on("get.synonyms", query => {
@@ -23,7 +32,7 @@ io.on("connection", function(socket) {
     // Readable streams emit 'data' events once a listener is added
     streamTs.on("data", chunk => {
       // pagination
-      if (body.length === 50) {
+      if (body.length === 150) {
         socket.emit(
           "synonyms",
           body.map(datum => ({
@@ -57,7 +66,8 @@ io.on("connection", function(socket) {
   });
 
   socket.on("get.synonyms.lang", function(query) {
-    const promises = codes.map(code => translate(query, { to: code }));
+    translate.translate(query, "ru").then(console.log);
+    const promises = codes.map(code => translate.translate(query, code));
 
     Promise.all(promises.map(p => p.catch(() => undefined)))
       .then(responses => {
@@ -69,14 +79,14 @@ io.on("connection", function(socket) {
                 resp && {
                   lang: iso.getName(codes[i]),
                   query,
-                  word: resp.text
+                  word: resp[0]
                 }
             )
             .filter(Boolean)
         );
       })
       .catch(err => {
-        console.error(err);
+        console.log(err);
       });
   });
 });
