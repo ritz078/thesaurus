@@ -9,7 +9,8 @@ import {
   Text,
   Icon,
   Spinner,
-  Link
+  Link,
+  Button
 } from "evergreen-ui";
 import { uniqBy, debounce } from "lodash";
 import Progress from "react-progress-2";
@@ -200,19 +201,22 @@ export default class extends React.PureComponent {
 
         <div className="inner content">
           <Pane>
-            <Tablist marginBottom={16} flexBasis={240} marginRight={24}>
-              {tabs.map(({ name, key }, index) => (
-                <Tab
-                  key={key}
-                  id={key}
-                  onSelect={() => this.setState({ tabIndex: index })}
-                  isSelected={index === tabIndex}
-                  aria-controls={`panel-${key}`}
-                >
-                  {name}
-                </Tab>
-              ))}
-            </Tablist>
+            <Pane display="flex">
+              <Tablist flex={1} marginBottom={16} flexBasis={240} marginRight={24}>
+                {tabs.map(({ name, key }, index) => (
+                  <Tab
+                    key={key}
+                    id={key}
+                    onSelect={() => this.setState({ tabIndex: index })}
+                    isSelected={index === tabIndex}
+                    aria-controls={`panel-${key}`}
+                  >
+                    {name}
+                  </Tab>
+                ))}
+              </Tablist>
+              <Link href="https://github.com/ritz078/thesaurus" rel="noopener" textDecoration="none"><Button iconBefore="code">GitHub</Button></Link>
+            </Pane>
             <Pane padding={16} background="tint1" flex="1">
               {!Object.keys(results).length && !this.state.loading && (
                 <Pane
