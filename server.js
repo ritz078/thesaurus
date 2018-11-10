@@ -11,7 +11,7 @@ const io = require("socket.io")(server);
 
 const nextApp = next({ dev });
 const nextHandler = nextApp.getRequestHandler();
-var ts = require("thesaurus-service");
+const ts = require("thesaurus-service");
 
 io.on("connection", function(socket) {
   let streamTs;

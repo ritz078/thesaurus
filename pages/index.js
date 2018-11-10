@@ -128,7 +128,7 @@ export default class extends React.PureComponent {
   };
 
   componentDidMount() {
-    this.socket = io.connect("http://localhost:3000");
+    this.socket = io();
     this.socket.on("synonyms", this.handleResults);
     this.socket.on("synonyms.lang", this.handleResults);
     this.socket.on("complete", () => {
