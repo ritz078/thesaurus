@@ -311,7 +311,7 @@ export default class extends React.PureComponent {
             borderTop="muted"
           >
             <Text display="inline-flex" textAlign="center">
-              Made with ❤️ love by&nbsp;{" "}
+              Made with ❤️ by&nbsp;{" "}
               <Link href="https://twitter.com/ritz078">ritz078</Link>
             </Text>
           </Pane>
