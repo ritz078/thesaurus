@@ -14,10 +14,7 @@ import {
 } from "evergreen-ui";
 import { uniqBy, debounce } from "lodash";
 import Progress from "react-progress-2";
-
-if (typeof window !== "undefined") {
-  window.io = require("socket.io-client");
-}
+import io from "socket.io-client";
 
 const Logo = props => {
   return (
@@ -115,7 +112,9 @@ export default class extends React.PureComponent {
 
   handleResults = result => {
     const { results } = this.state;
-    const _query = Array.isArray(result) ? result[0].query : result.query;
+    const _result = result && Array.isArray(result) ? result[0] : result;
+    if (!_result) return;
+    const _query = _result.query;
     return this.setState({
       results: {
         ...results,
@@ -137,6 +136,10 @@ export default class extends React.PureComponent {
         loading: false
       });
     });
+  }
+
+  componentWillUnmount() {
+    this.socket.close();
   }
 
   render() {
