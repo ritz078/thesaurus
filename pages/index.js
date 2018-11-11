@@ -10,7 +10,8 @@ import {
   Icon,
   Spinner,
   Link,
-  Button
+  Button,
+  Strong
 } from "evergreen-ui";
 import { uniqBy, debounce } from "lodash";
 import Progress from "react-progress-2";
@@ -150,7 +151,7 @@ export default class extends React.PureComponent {
       <div>
         <style jsx>{`
           header {
-            padding: 20px 15px;
+            padding: 20px 10px;
             margin: 0 auto;
             border-bottom: 1px solid #eee;
             background-color: #f9f9f9;
@@ -167,7 +168,6 @@ export default class extends React.PureComponent {
           .header {
             display: flex;
             flex-direction: row;
-            padding: 0 10px;
           }
 
           .content {
@@ -205,7 +205,12 @@ export default class extends React.PureComponent {
         <div className="inner content">
           <Pane>
             <Pane display="flex">
-              <Tablist flex={1} marginBottom={16} flexBasis={240} marginRight={24}>
+              <Tablist
+                flex={1}
+                marginBottom={16}
+                flexBasis={240}
+                marginRight={24}
+              >
                 {tabs.map(({ name, key }, index) => (
                   <Tab
                     key={key}
@@ -218,9 +223,15 @@ export default class extends React.PureComponent {
                   </Tab>
                 ))}
               </Tablist>
-              <Link href="https://github.com/ritz078/thesaurus" rel="noopener" textDecoration="none"><Button iconBefore="code">GitHub</Button></Link>
+              <Link
+                href="https://github.com/ritz078/thesaurus"
+                rel="noopener"
+                textDecoration="none"
+              >
+                <Button iconBefore="code">GitHub</Button>
+              </Link>
             </Pane>
-            <Pane padding={16} background="tint1" flex="1">
+            <Pane padding={16} flex="1">
               {!Object.keys(results).length && !this.state.loading && (
                 <Pane
                   alignItems="center"
@@ -269,39 +280,49 @@ export default class extends React.PureComponent {
                       </Pane>
                     )}
 
-                  {index === tabIndex && <Pane
-                    id={`panel-${name}`}
-                    role="tabpanel"
-                    aria-labelledby={name}
-                    height="auto"
-                    aria-hidden={index !== tabIndex}
-                    display="flex"
-                  >
-                    <UnorderedList>
-                      {_results[key].map(result => {
-                        return (
-                          <ListItem
-                            width="33%"
-                            float="left"
-                            key={result.word}
-                            paddingRight="10px"
-                            minWidth={250}
-                            textTransform="capitalize"
-                          >
-                            {result.word
-                              .replace("(similar term)", "")
-                              .replace("(generic term)", "")}
+                  {index === tabIndex && (
+                    <>
+                      {!!_results[key].length && (
+                        <Strong size={400} marginBottom="18px" display="block">
+                          Found {_results[key].length} results for "{query}"
+                        </Strong>
+                      )}
 
-                            {result[sub] && (
-                              <Text size={300} color="muted">
-                                &nbsp;&nbsp;({result[sub]})
-                              </Text>
-                            )}
-                          </ListItem>
-                        );
-                      })}
-                    </UnorderedList>
-                  </Pane>}
+                      <Pane
+                        id={`panel-${name}`}
+                        role="tabpanel"
+                        aria-labelledby={name}
+                        height="auto"
+                        aria-hidden={index !== tabIndex}
+                        display="flex"
+                      >
+                        <UnorderedList>
+                          {_results[key].map(result => {
+                            return (
+                              <ListItem
+                                width="33%"
+                                float="left"
+                                key={result.word}
+                                paddingRight="10px"
+                                minWidth={250}
+                                textTransform="capitalize"
+                              >
+                                {result.word
+                                  .replace("(similar term)", "")
+                                  .replace("(generic term)", "")}
+
+                                {result[sub] && (
+                                  <Text size={300} color="muted">
+                                    &nbsp;&nbsp;({result[sub]})
+                                  </Text>
+                                )}
+                              </ListItem>
+                            );
+                          })}
+                        </UnorderedList>
+                      </Pane>
+                    </>
+                  )}
                 </React.Fragment>
               ))}
             </Pane>
