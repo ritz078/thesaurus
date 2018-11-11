@@ -286,6 +286,7 @@ export default class extends React.PureComponent {
                             key={result.word}
                             paddingRight="10px"
                             minWidth={250}
+                            textTransform="capitalize"
                           >
                             {result.word
                               .replace("(similar term)", "")

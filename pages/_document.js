@@ -33,6 +33,7 @@ export default class MyDocument extends Document {
       <html>
         <Head>
           <link rel="shortcut icon" type="image/png" href="/static/favicon.png"/>
+          <meta name="viewport" content="width=device-width, initial-scale=1"/>
           <style dangerouslySetInnerHTML={{ __html: styles }} />
           <style dangerouslySetInnerHTML={{ __html: css }} />
         </Head>
