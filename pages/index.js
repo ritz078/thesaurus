@@ -231,7 +231,7 @@ export default class extends React.PureComponent {
                 <Button iconBefore="code">GitHub</Button>
               </Link>
             </Pane>
-            <Pane padding={16} flex="1">
+            <Pane flex="1">
               {!Object.keys(results).length && !this.state.loading && (
                 <Pane
                   alignItems="center"
@@ -283,7 +283,7 @@ export default class extends React.PureComponent {
                   {index === tabIndex && (
                     <>
                       {!!_results[key].length && (
-                        <Strong size={400} marginBottom="18px" display="block">
+                        <Strong size={400} background="#f9f9f9" padding={6} borderRadius={4} marginBottom="18px" display="block">
                           Found {_results[key].length} results for "{query}"
                         </Strong>
                       )}
