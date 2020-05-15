@@ -17,7 +17,7 @@ There are so many thesaurus on the web. But I wanted something which also shows 
 - [Montserrat Subrayada](https://fonts.google.com/specimen/Montserrat+Subrayada) - The font used in the logo.
 
 #### Development
-As simple as `yarn && yarn dev`
+`yarn && yarn dev`
 
 #### License 
 MIT
